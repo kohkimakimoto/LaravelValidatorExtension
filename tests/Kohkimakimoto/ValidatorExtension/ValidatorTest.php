@@ -5,7 +5,7 @@ use Kohkimakimoto\ValidatorExtension\Validator;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testDefault()
+    public function testAddRuleAndRunPasses()
     {
         $v = new Validator(
             $this->getRealTranslator(), 
@@ -15,7 +15,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($v->passes());
     }
-
 
     /**
      * https://github.com/laravel/framework/blob/4.2/tests/Validation/ValidationValidatorTest.php#L1276
