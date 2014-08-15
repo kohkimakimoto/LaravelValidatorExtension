@@ -9,7 +9,65 @@ An extension for Laravel4 validator.
 * Provide another syntax to define validation rules.
 * Filter input values before and after validation.
 
-The following code is an example of validatior class.
+Look at [usage](#usage) to get more detail.
+
+# Installation
+
+Add dependency in `composer.json`
+
+```json
+"require": {
+    "kohkimakimoto/laravel-validator-extension": "0.*"
+}
+```
+
+Run `composer upadte` command.
+
+```
+$ composer update
+```
+
+Add `ValidatorExtensionServiceProvider` provider to `providers` configuration in `app/config/app.php`.
+
+```
+'providers' => array(
+    ....
+    'Kohkimakimoto\ValidatorExtension\ValidatorExtensionServiceProvider',
+}
+```
+
+Add `BaseValidator` alias to `aliases` configuration in `app/config/app.php`.
+
+```php
+'aliases' => array(
+    ...
+    'BaseValidator' => 'Kohkimakimoto\ValidatorExtension\ValidatorSchema',
+),
+```
+
+Add a path to laravel class loader in `app/start/global.php`.
+
+```php
+ClassLoader::addDirectories(array(
+    ...
+    app_path().'/validators',
+));
+```
+
+And add a path at `autoload` section in `composer.json`.
+
+```json
+"autoload": {
+    "classmap": [
+        ...
+        "app/validators"
+    ]
+}
+```
+
+## Usage
+
+Define validation class. If you added a path to autoload and class loader configuration at the installation steps, you can define validation the class in `app/validators` directory.
 
 ```php
 class BlogValidator extends BaseValidator
@@ -28,8 +86,6 @@ class BlogValidator extends BaseValidator
 The validation class is used as the below.
 
 ```php
-// * In a controller.
-
 $validator = BlogValidator::make(Input::all());
 if ($validator->fails()) {
     return Redirect::back()->withInput(Input::all())->withErrors($validator);
@@ -58,57 +114,24 @@ class BlogValidator extends BaseValidator
 }
 ```
 
-# Installation
-
-Add dependency in `composer.json`
-
-```json
-"require": {
-    "kohkimakimoto/laravel-validator-extension": "0.*"
-}
-```
-
-Run `composer upadte` command.
-
-```
-$ composer update
-```
-
-Add `ValidatorExtensionServiceProvider` provider to `providers` configuration in `app/config/app.php`.
-
-```
-'providers' => array(
-    ....
-    'Kohkimakimoto\ValidatorExtension\ValidatorExtensionServiceProvider',
-}
-```
-
-Add `BaseValidator` Alias to `aliases` configuration in `app/config/app.php`.
+You can define custom validation rules in the class.
 
 ```php
-'aliases' => array(
-    ...
-    'BaseValidator' => 'Kohkimakimoto\ValidatorExtension\ValidatorSchema',
-),
-```
+class BlogValidator extends BaseValidator
+{
+    protected function configure($validator)
+    {
+        $validator
+            ->rule('title', 'required', 'Title is required.')
+            ->rule('title', 'max:100', 'Title must not be greater than 100 characters.')
+            ->rule('body', 'foo', 'Body must be foo only!')
+            ;
+    }
 
-Add a path to Laravel class loader in `app/start/global.php`.
-
-```php
-ClassLoader::addDirectories(array(
-    ...
-    app_path().'/validators',
-));
-```
-
-And add a path at `autoload` section in `composer.json`.
-
-```json
-"autoload": {
-    "classmap": [
-        ...
-        "app/validators"
-    ]
+    public function validateFoo($attribute, $value, $parameters, $validator)
+    {
+        return $value == 'foo';
+    }
 }
 ```
 
@@ -116,6 +139,6 @@ And add a path at `autoload` section in `composer.json`.
 
 The MIT License
 
-## Author 
+## Author
 
 Kohki Makimoto <kohki.makimoto@gmail.com>

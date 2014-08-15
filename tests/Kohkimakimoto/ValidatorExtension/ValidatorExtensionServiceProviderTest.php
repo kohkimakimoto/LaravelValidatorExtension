@@ -5,10 +5,10 @@ use Kohkimakimoto\ValidatorExtension\ValidatorExtensionServiceProvider;
 
 class ValidatorExtensionServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreateProvider()
+    public function testRegisterProvider()
     {
         $provider = new ValidatorExtensionServiceProvider(null);
+        $provider->register();
     }
-
 }
 
