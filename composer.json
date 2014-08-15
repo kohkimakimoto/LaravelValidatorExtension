@@ -1,6 +1,6 @@
 {
     "name": "kohkimakimoto/laravel-validator-extension",
-    "description": "An extension of validator for Laravel4.",
+    "description": "An extension for Laravel4 validator.",
     "license": "MIT",
     "authors": [
         {
