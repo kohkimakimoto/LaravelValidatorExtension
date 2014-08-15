@@ -74,7 +74,16 @@ Run `composer upadte` command.
 $ composer update
 ```
 
-Add Alias to `aliases` configuration in `app/config/app.php`
+Add `ValidatorExtensionServiceProvider` provider to `providers` configuration in `app/config/app.php`.
+
+```
+'providers' => array(
+    ....
+    'Kohkimakimoto\ValidatorExtension\ValidatorExtensionServiceProvider',
+}
+```
+
+Add `BaseValidator` Alias to `aliases` configuration in `app/config/app.php`.
 
 ```php
 'aliases' => array(
@@ -83,13 +92,29 @@ Add Alias to `aliases` configuration in `app/config/app.php`
 ),
 ```
 
-Add a path to Laravel class loader in `app/start/global.php`
+Add a path to Laravel class loader in `app/start/global.php`.
 
 ```php
 ClassLoader::addDirectories(array(
     ...
     app_path().'/validators',
 ));
+```
+
+And add a path at `autoload` section in `composer.json`.
+
+```json
+"autoload": {
+    "classmap": [
+        "app/commands",
+        "app/controllers",
+        "app/models",
+        "app/database/migrations",
+        "app/database/seeds",
+        "app/tests/TestCase.php",
+        "app/validators"
+    ]
+},
 ```
 
 ## LICENSE
