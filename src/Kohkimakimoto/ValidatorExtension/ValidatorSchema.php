@@ -5,12 +5,25 @@ use Illuminate\Support\Facades\App;
 
 abstract class ValidatorSchema
 {
+    protected static $translator;
+
     protected $data;
+
     protected $options;
 
     public static function make($data, $options = array())
     {
         return with(new static())->makeupValidator($data, $options);
+    }
+
+    public static function setTranslator($translator)
+    {
+        static::$translator = $translator;
+    }
+
+    public static function getTranslator()
+    {
+        return static::$translator;
     }
 
     protected function makeupValidator($data, $options)
@@ -26,7 +39,7 @@ abstract class ValidatorSchema
 
     protected function createValidator($data)
     {
-        return new Validator(App::make('translator'), $data, []);
+        return new Validator(static::$translator, $data, array());
     }
 
     protected abstract function configure($validator);

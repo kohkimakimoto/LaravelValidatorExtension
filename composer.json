@@ -1,6 +1,7 @@
 {
     "name": "kohkimakimoto/laravel-validator-extension",
-    "description": "An extension of validator for Laravel4.",
+    "description": "An extension for Laravel4 validator.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Kohki Makimoto",
@@ -9,7 +10,14 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "mockery/mockery": "~0.9",
+        "illuminate/support": "4.*",
+        "illuminate/validation": "4.*",
+        "illuminate/translation": "4.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*",
+        "satooshi/php-coveralls": "dev-master"
     },
     "autoload": {
         "psr-0": {
