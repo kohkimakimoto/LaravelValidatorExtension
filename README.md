@@ -114,7 +114,7 @@ And add a path at `autoload` section in `composer.json`.
         "app/tests/TestCase.php",
         "app/validators"
     ]
-},
+}
 ```
 
 ## LICENSE
