@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/kohkimakimoto/LaravelValidatorExtension.svg?branch=master)](https://travis-ci.org/kohkimakimoto/LaravelValidatorExtension)
 [![Coverage Status](https://coveralls.io/repos/kohkimakimoto/LaravelValidatorExtension/badge.png?branch=master)](https://coveralls.io/r/kohkimakimoto/LaravelValidatorExtension?branch=master)
 
-An extension for Laravel4 validator.
+An extension for [Laravel4](http://laravel.com/) validator.
 
 * Support to define validation rules in a specific class.
 * Provide another syntax to define validation rules.
