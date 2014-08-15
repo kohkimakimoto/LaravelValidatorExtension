@@ -3,6 +3,9 @@ namespace Kohkimakimoto\ValidatorExtension;
 
 use Illuminate\Support\Facades\App;
 
+/**
+ * ValidatorSchema support to define validation rules in a specific class.
+ */
 abstract class ValidatorSchema
 {
     protected static $translator;

@@ -3,6 +3,9 @@ namespace Kohkimakimoto\ValidatorExtension;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * ValidatorExtensionServiceProvider
+ */
 class ValidatorExtensionServiceProvider extends ServiceProvider
 {
     /**

@@ -5,6 +5,9 @@ use Closure;
 use Illuminate\Validation\Validator as IlluminateValidator;
 use Illuminate\Support\MessageBag;
 
+/**
+ * Custom Validator
+ */
 class Validator extends IlluminateValidator
 {
     protected $validAttributes = array();
