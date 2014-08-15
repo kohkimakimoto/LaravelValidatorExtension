@@ -67,7 +67,7 @@ And add a path at `autoload` section in `composer.json`.
 
 ## Usage
 
-Define validation class. If you added a path to autoload and class loader configuration at the installation steps, you can define validation the class in `app/validators` directory.
+Define a validation class. If you added a path to autoload and class loader configuration at the installation steps, you can define the validation class in `app/validators` directory.
 
 ```php
 class BlogValidator extends BaseValidator
