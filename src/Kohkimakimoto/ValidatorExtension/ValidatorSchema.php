@@ -26,7 +26,7 @@ abstract class ValidatorSchema
 
     protected function createValidator($data)
     {
-        return new Validator(App::make('translator'), $data, []);
+        return new Validator(App::make('translator'), $data, array());
     }
 
     protected abstract function configure($validator);
