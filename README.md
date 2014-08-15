@@ -4,6 +4,10 @@
 
 An extension for Laravel4 validator.
 
+* Support to define validation rules in a specific class.
+* Provide another syntax to define validation rules.
+* Filter input values before and after validation.
+
 # Installation
 
 Add dependency in `composer.json`
