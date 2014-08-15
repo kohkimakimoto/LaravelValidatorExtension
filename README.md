@@ -1,6 +1,8 @@
 # Laravel Validator Extension
 
-[![Build Status](https://travis-ci.org/kohkimakimoto/LaravelValidatorExtension.svg?branch=master)](https://travis-ci.org/kohkimakimoto/LaravelValidatorExtension)
+[![Build Status](https://travis-ci.org/kohkimakimoto/LaravelValidatorExtension.svg?branch=0.1.0)](https://travis-ci.org/kohkimakimoto/LaravelValidatorExtension)
+
+[![Coverage Status](https://coveralls.io/repos/kohkimakimoto/LaravelValidatorExtension/badge.png?branch=0.1.0)](https://coveralls.io/r/kohkimakimoto/LaravelValidatorExtension?branch=0.1.0)
 
 An extension for Laravel4 validator.
 
