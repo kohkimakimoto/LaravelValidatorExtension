@@ -106,12 +106,7 @@ And add a path at `autoload` section in `composer.json`.
 ```json
 "autoload": {
     "classmap": [
-        "app/commands",
-        "app/controllers",
-        "app/models",
-        "app/database/migrations",
-        "app/database/seeds",
-        "app/tests/TestCase.php",
+        ...
         "app/validators"
     ]
 }
