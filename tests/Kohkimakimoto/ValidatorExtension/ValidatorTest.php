@@ -5,7 +5,7 @@ use Kohkimakimoto\ValidatorExtension\Validator;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testAddRuleAndRunPasses()
+    public function testAddRuleAndRunPassesTrue()
     {
         $v = new Validator(
             $this->getRealTranslator(), 
@@ -14,6 +14,17 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $v->rule('foo', 'required');
 
         $this->assertTrue($v->passes());
+    }
+
+    public function testAddRuleAndRunPassesFalse()
+    {
+        $v = new Validator(
+            $this->getRealTranslator(), 
+            array('foo' => null), 
+            array());
+        $v->rule('foo', 'required');
+
+        $this->assertFalse($v->passes());
     }
 
     /**
