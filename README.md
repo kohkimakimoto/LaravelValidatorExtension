@@ -9,7 +9,7 @@ An extension for Laravel4 validator.
 Add dependency in `composer.json`
 
 ```json
-"require-dev": {
+"require": {
     "kohkimakimoto/laravel-validator-extension": "0.*"
 }
 ```
