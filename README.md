@@ -37,6 +37,27 @@ if ($validator->fails()) {
 $data = $validator->validData();
 ```
 
+You can filter input values before and after validation.
+
+```php
+class BlogValidator extends BaseValidator
+{
+    protected function configure($validator)
+    {
+        $validator->beforeFilter(function($validator){
+            // your code
+        });
+
+        $validator->afterFilter(function($validator){
+            // Modify title after validation.
+            $title = $validator->get('title');
+            $title .= " created by kohki";
+            $validator->set('title', $title);
+        });
+    }
+}
+```
+
 # Installation
 
 Add dependency in `composer.json`
