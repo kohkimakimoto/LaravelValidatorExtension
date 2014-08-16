@@ -109,17 +109,24 @@ abstract class Validator extends IlluminateValidator implements ArrayableInterfa
         return $this;
     }
 
-    public function validData()
-    {
-        return array_only($this->data, array_keys($this->validAttributes));
-    }
-
     protected function validate($attribute, $rule)
     {
         parent::validate($attribute, $rule);
         $this->validAttributes[$attribute] = true;
     }
 
+    public function validData()
+    {
+        return array_only($this->data, array_keys($this->validAttributes));
+    }
+
+    /**
+     * Additional validation rule that always passes.
+     *
+     * @param  string $attribute
+     * @param  mixed $value
+     * @return bool
+     */
     protected function validatePass($attribute, $value)
     {
         return true;
@@ -154,10 +161,5 @@ abstract class Validator extends IlluminateValidator implements ArrayableInterfa
     public function __set($key, $value)
     {
         $this->set($key, $value);
-    }
-
-    public function __call($method, $parameters)
-    {
-        return parent::__call($method, $parameters);
     }
 }

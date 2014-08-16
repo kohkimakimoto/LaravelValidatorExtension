@@ -10,6 +10,14 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         Validator::setDefaultTranslator($this->getRealTranslator());
     }
 
+    public function testAccessingDefaultTranslator()
+    {
+        Validator::setDefaultTranslator($this->getRealTranslator());
+        $this->assertEquals($this->getRealTranslator(), Validator::getDefaultTranslator());
+
+    }
+
+
     public function testAddRuleAndRunPassesTrue()
     {
         $v = Test01Validator::make(array('foo' => 'bar'));
