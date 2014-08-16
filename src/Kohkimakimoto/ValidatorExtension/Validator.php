@@ -2,26 +2,44 @@
 namespace Kohkimakimoto\ValidatorExtension;
 
 use Closure;
+use Symfony\Component\Translation\TranslatorInterface;
 use Illuminate\Validation\Validator as IlluminateValidator;
 use Illuminate\Support\MessageBag;
 
 /**
  * Custom Validator
  */
-class Validator extends IlluminateValidator
+abstract class Validator extends IlluminateValidator
 {
+    protected static $defaultTranslator;
+
     protected $validAttributes = array();
 
     protected $beforeFilter;
 
     protected $afterFilter;
 
-    protected $schema;
+    protected $options;
 
-    public function setSchema($schema)
+    public static function make($data, $options = array())
     {
-        $this->schema = $schema;
+        $instance = new static(static::$defaultTranslator, $data, array());
+        $instance->options = $options;
+        $instance->configure();
+        return $instance;
     }
+
+    public static function setDefaultTranslator(TranslatorInterface $defaultTranslator)
+    {
+        static::$defaultTranslator = $defaultTranslator;
+    }
+
+    public static function getDefaultTranslator()
+    {
+        return static::$defaultTranslator;
+    }
+
+    protected abstract function configure();
 
     public function rule($attribute, $rule, $message = null)
     {
@@ -96,10 +114,6 @@ class Validator extends IlluminateValidator
 
     public function __call($method, $parameters)
     {
-        if (method_exists($this->schema, $method)) {
-            return call_user_func_array(array($this->schema, $method), $parameters);
-        }
-
         return parent::__call($method, $parameters);
     }
 }
