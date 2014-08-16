@@ -70,6 +70,18 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($v->passes());
     }
 
+    public function testToArray()
+    {
+        $v = Test04Validator::make(array('title' => 'aaa', 'body' => 'bbb'));
+        $this->assertEquals(array('title' => 'aaa', 'body' => 'bbb'), $v->toArray());
+    }
+
+    public function testToJson()
+    {
+        $v = Test04Validator::make(array('title' => 'aaa', 'body' => 'bbb'));
+        $this->assertEquals('{"title":"aaa","body":"bbb"}', $v->toJson());
+    }
+
     /**
      * https://github.com/laravel/framework/blob/4.2/tests/Validation/ValidationValidatorTest.php#L1276
      */

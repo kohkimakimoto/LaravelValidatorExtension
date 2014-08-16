@@ -6,11 +6,13 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Illuminate\Validation\Validator as IlluminateValidator;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Contracts\JsonableInterface;
+use Illuminate\Support\Contracts\ArrayableInterface;
 
 /**
  * Custom Validator
  */
-abstract class Validator extends IlluminateValidator
+abstract class Validator extends IlluminateValidator implements ArrayableInterface, JsonableInterface
 {
     protected static $defaultTranslator;
 
@@ -121,6 +123,27 @@ abstract class Validator extends IlluminateValidator
     protected function validatePass($attribute, $value)
     {
         return true;
+    }
+
+    /**
+     * Convert the model instance to JSON.
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    /**
+     * Convert the model instance to an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->data;
     }
 
     public function __get($key)
