@@ -41,7 +41,7 @@ Add `BaseValidator` alias to `aliases` configuration in `app/config/app.php`.
 ```php
 'aliases' => array(
     ...
-    'BaseValidator' => 'Kohkimakimoto\ValidatorExtension\ValidatorSchema',
+    'BaseValidator' => 'Kohkimakimoto\ValidatorExtension\Validator',
 ),
 ```
 
@@ -72,9 +72,9 @@ Define a validation class. If you added a path to autoload and class loader conf
 ```php
 class BlogValidator extends BaseValidator
 {
-    protected function configure($validator)
+    protected function configure()
     {
-        $validator
+        $this
             ->rule('title', 'required', 'Title is required.')
             ->rule('title', 'max:100', 'Title must not be greater than 100 characters.')
             ->rule('body', 'pass')
@@ -90,7 +90,7 @@ $validator = BlogValidator::make(Input::all());
 if ($validator->fails()) {
     return Redirect::back()->withInput(Input::all())->withErrors($validator);
 }
-$data = $validator->validData();
+$data = $validator->onlyValidData();
 ```
 
 You can filter input values before and after validation.
@@ -98,17 +98,17 @@ You can filter input values before and after validation.
 ```php
 class BlogValidator extends BaseValidator
 {
-    protected function configure($validator)
+    protected function configure()
     {
-        $validator->beforeFilter(function($validator){
+        $this->beforeFilter(function($validator){
             // your code
         });
 
-        $validator->afterFilter(function($validator){
+        $this->afterFilter(function($validator){
             // Modify title after validation.
-            $title = $validator->get('title');
+            $title = $validator->title;
             $title .= " created by kohki";
-            $validator->set('title', $title);
+            $validator->title, $title;
         });
     }
 }
@@ -119,18 +119,33 @@ You can define custom validation rules in the class.
 ```php
 class BlogValidator extends BaseValidator
 {
-    protected function configure($validator)
+    protected function configure()
     {
-        $validator
+        $this
             ->rule('title', 'required', 'Title is required.')
             ->rule('title', 'max:100', 'Title must not be greater than 100 characters.')
             ->rule('body', 'foo', 'Body must be foo only!')
             ;
     }
 
-    public function validateFoo($attribute, $value, $parameters, $validator)
+    protected function validateFoo($attribute, $value, $parameters)
     {
         return $value == 'foo';
+    }
+}
+```
+
+The validator can be used as a value object. So you can append some custom methods to manipulate data stored in it.
+
+```php
+class BlogValidator extends BaseValidator
+{
+    public function getTitleOrDefault() {
+        if ($this->title === null) {
+            return "Default title";
+        } else {
+            return $this->title;
+        }
     }
 }
 ```

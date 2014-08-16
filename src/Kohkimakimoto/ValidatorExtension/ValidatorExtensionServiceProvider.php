@@ -23,7 +23,7 @@ class ValidatorExtensionServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->package('kohkimakimoto/validator-extension');
-        ValidatorSchema::setTranslator($this->app->make('translator'));
+        Validator::setDefaultTranslator($this->app->make('translator'));
     }
 
     /**
