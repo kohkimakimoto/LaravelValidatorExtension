@@ -115,7 +115,16 @@ abstract class Validator extends IlluminateValidator implements ArrayableInterfa
         $this->validAttributes[$attribute] = true;
     }
 
-    public function validData()
+    public function only($keys)
+    {
+        return array_only($this->data, $keys);
+    }
+
+    /**
+     * Returns only validated data.
+     * @return [type] [description]
+     */
+    public function onlyValidData()
     {
         return array_only($this->data, array_keys($this->validAttributes));
     }

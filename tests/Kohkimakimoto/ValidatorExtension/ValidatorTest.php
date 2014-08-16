@@ -17,7 +17,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
     }
 
-
     public function testAddRuleAndRunPassesTrue()
     {
         $v = Test01Validator::make(array('foo' => 'bar'));
@@ -88,6 +87,24 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $v = Test04Validator::make(array('title' => 'aaa', 'body' => 'bbb'));
         $this->assertEquals('{"title":"aaa","body":"bbb"}', $v->toJson());
+    }
+
+    public function testOnlyValidData()
+    {
+        $v = Test01Validator::make(array('foo' => 'bar', 'foo2' => 'bar2'));
+        $v->rule('foo', 'required');
+        $this->assertTrue($v->passes());
+        $this->assertEquals(array('foo' => 'bar'), $v->onlyValidData());
+    }
+
+    public function testOnly()
+    {
+        $v = Test01Validator::make(array('foo' => 'bar', 'foo2' => 'bar2'));
+        $v->rule('foo', 'required');
+        $this->assertTrue($v->passes());
+        $this->assertEquals(array('foo' => 'bar'), $v->only('foo'));
+        $this->assertEquals(array('foo' => 'bar', 'foo2' => 'bar2'), $v->only(array('foo', 'foo2')));
+
     }
 
     /**

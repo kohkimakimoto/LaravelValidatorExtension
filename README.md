@@ -90,7 +90,7 @@ $validator = BlogValidator::make(Input::all());
 if ($validator->fails()) {
     return Redirect::back()->withInput(Input::all())->withErrors($validator);
 }
-$data = $validator->validData();
+$data = $validator->onlyValidData();
 ```
 
 You can filter input values before and after validation.
@@ -135,7 +135,7 @@ class BlogValidator extends BaseValidator
 }
 ```
 
-The validator can be used as a value object. So you can append some custom method to manipulate data stored in it.
+The validator can be used as a value object. So you can append some custom methods to manipulate data stored in it.
 
 ```php
 class BlogValidator extends BaseValidator
