@@ -106,9 +106,9 @@ class BlogValidator extends BaseValidator
 
         $this->afterFilter(function($validator){
             // Modify title after validation.
-            $title = $validator->get('title');
+            $title = $validator->title;
             $title .= " created by kohki";
-            $validator->set('title', $title);
+            $validator->title, $title;
         });
     }
 }
@@ -131,6 +131,21 @@ class BlogValidator extends BaseValidator
     protected function validateFoo($attribute, $value, $parameters)
     {
         return $value == 'foo';
+    }
+}
+```
+
+The validator can be used as a value object. So you can append some custom method to manipulate data stored in it.
+
+```php
+class BlogValidator extends BaseValidator
+{
+    public function getTitleOrDefault() {
+        if ($this->title === null) {
+            return "Default title";
+        } else {
+            return $this->title;
+        }
     }
 }
 ```
