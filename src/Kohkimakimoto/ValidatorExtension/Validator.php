@@ -3,6 +3,7 @@ namespace Kohkimakimoto\ValidatorExtension;
 
 use Closure;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Illuminate\Validation\Validator as IlluminateValidator;
 use Illuminate\Support\MessageBag;
 
@@ -88,12 +89,22 @@ abstract class Validator extends IlluminateValidator
 
     public function get($key, $default = null)
     {
-        return array_get($this->data, $key, $default);
+        if (!is_null($value = $this->getValue($key))) {
+            return $value;
+        } else {
+            return $default;
+        }
     }
 
     public function set($key, $value)
     {
-        return $this->data[$key] = $value;
+        if ($value instanceof File) {
+            $this->files[$key] = $value;
+            unset($data[$key]);
+        }
+        $this->data[$key] = $value;
+
+        return $this;
     }
 
     public function validData()
@@ -110,6 +121,16 @@ abstract class Validator extends IlluminateValidator
     protected function validatePass($attribute, $value)
     {
         return true;
+    }
+
+    public function __get($key)
+    {
+        return $this->get($key);
+    }
+
+    public function __set($key, $value)
+    {
+        $this->set($key, $value);
     }
 
     public function __call($method, $parameters)

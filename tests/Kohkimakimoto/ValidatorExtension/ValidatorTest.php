@@ -36,15 +36,15 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $v->rule('foo', 'required');
         $v->rule('bar', 'required');
         $v->beforeFilter(function($v){
-            $foo = $v->get('foo');
+            $foo = $v->foo;
             $foo .= "foo";
-            $v->set('foo', $foo);
+            $v->foo = $foo;
         });
 
         $v->afterFilter(function($v){
-            $bar = $v->get('bar');
+            $bar = $v->bar;
             $bar .= "bar";
-            $v->set('bar', $bar);
+            $v->bar = $bar;
         });
 
         $this->assertTrue($v->passes());
@@ -105,15 +105,15 @@ class Test03Validator extends Validator
         $this->rule('bar', 'required');
 
         $this->beforeFilter(function($v){
-            $foo = $v->get('foo');
+            $foo = $v->foo;
             $foo .= "foo";
-            $v->set('foo', $foo);
+            $v->foo = $foo;
         });
 
         $this->afterFilter(function($v){
-            $bar = $v->get('bar');
+            $bar = $v->bar;
             $bar .= "bar";
-            $v->set('bar', $bar);
+            $v->bar = $bar;
         });
     }
 }
