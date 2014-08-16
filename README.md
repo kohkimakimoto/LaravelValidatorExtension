@@ -84,6 +84,8 @@ class BlogValidator extends BaseValidator
 }
 ```
 
+You can use `$this->rule` method to add a validation rule. The third argument is optional to customize a error message.
+
 The validator class is used as the below.
 
 ```php
@@ -91,6 +93,8 @@ $validator = BlogValidator::make(Input::all());
 if ($validator->fails()) {
     return Redirect::back()->withInput(Input::all())->withErrors($validator);
 }
+
+// Get only validated data.
 $data = $validator->onlyValidData();
 ```
 
