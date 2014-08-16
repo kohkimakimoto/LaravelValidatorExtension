@@ -61,6 +61,18 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testFilters2()
     {
+        $v = Test01Validator::make(array('foo' => 'aaa', 'bar' => 'bbb'));
+        $v->rule('foo', 'required');
+        $v->rule('bar', 'required');
+        $v->beforeFilter(function($v){
+            return false;
+        });
+
+        $this->assertFalse($v->passes());
+    }
+
+    public function testFilters3()
+    {
         $v = Test03Validator::make(array('foo' => 'aaa', 'bar' => 'bbb'));
         $this->assertTrue($v->passes());
         $this->assertEquals("aaafoo", $v->get('foo'));
@@ -95,6 +107,13 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $v->rule('foo', 'required');
         $this->assertTrue($v->passes());
         $this->assertEquals(array('foo' => 'bar'), $v->onlyValidData());
+
+        $v = Test01Validator::make(array('foo' => 'bar', 'foo2' => 'bar2'));
+        $v->rule('foo', 'required');
+        $v->rule('foo2', 'pass');
+        $this->assertTrue($v->passes());
+        $this->assertEquals(array('foo' => 'bar', 'foo2' => 'bar2'), $v->onlyValidData());
+
     }
 
     public function testOnly()

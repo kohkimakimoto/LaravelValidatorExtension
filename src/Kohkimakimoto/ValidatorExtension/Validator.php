@@ -70,14 +70,26 @@ abstract class Validator extends IlluminateValidator implements ArrayableInterfa
 
     public function passes()
     {
+        $this->messages = new MessageBag;
+
         if (!is_null($this->beforeFilter)) {
             if (call_user_func($this->beforeFilter, $this) === false) {
-                $this->messages = new MessageBag;
                 return false;
             }
         }
 
-        $ret = parent::passes();
+        // We'll spin through each rule, validating the attributes attached to that
+        // rule. Any error messages will be added to the containers with each of
+        // the other error messages, returning true if we don't have messages.
+        foreach ($this->rules as $attribute => $rules)
+        {
+            foreach ($rules as $rule)
+            {
+                $this->validate($attribute, $rule);
+            }
+        }
+
+        $ret = count($this->messages->all()) === 0;
 
         if ($ret === true) {
             if (!is_null($this->afterFilter)) {
