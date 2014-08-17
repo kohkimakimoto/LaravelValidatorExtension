@@ -67,7 +67,14 @@ And add a path at `autoload` section in `composer.json`.
 
 ## Usage
 
-Define a validator class. If you added a path to autoload and class loader configuration at the installation steps, you can define the validator class in the `app/validators` directory.
+* [Define validation rules](#define-validation-rules)
+* [Filters](#filters)
+* [Custom validation rules](#custom-validation-rules)
+* [Custom methods](#custom-methods)
+
+### Define validation rules
+
+You can define validation rules in a validator class. If you added a path to autoload and class loader configuration at the installation steps, you can define the validator class in the `app/validators` directory.
 
 ```php
 // app/validators/BlogValidator.php
@@ -98,6 +105,8 @@ if ($validator->fails()) {
 $data = $validator->onlyValidData();
 ```
 
+### Filters
+
 You can filter input values before and after validation.
 
 ```php
@@ -119,6 +128,8 @@ class BlogValidator extends BaseValidator
 }
 ```
 
+### Custom validation rules
+
 You can define custom validation rules in the class.
 
 ```php
@@ -139,6 +150,8 @@ class BlogValidator extends BaseValidator
     }
 }
 ```
+
+### Custom methods
 
 The validator can be used as a value object. So you can append some custom methods to manipulate data stored in it.
 
