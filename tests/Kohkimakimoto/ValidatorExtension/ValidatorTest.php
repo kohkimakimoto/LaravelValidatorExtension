@@ -126,6 +126,20 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function testAccessingOptions()
+    {
+        $v = Test01Validator::make(
+            array('foo' => 'bar', 'foo2' => 'bar2'),
+            array('op1' => 'aaaa', 'op2' => 'bbbb'));
+
+        $this->assertEquals('aaaa', $v->getOption('op1'));
+        $this->assertEquals('bbbb', $v->getOption('op2'));
+        $this->assertEquals('default_aaaa', $v->getOption('op3', "default_aaaa"));
+
+        $v->setOption('op1', 'cccc');
+        $this->assertEquals('cccc', $v->getOption('op1'));
+    }
+
     /**
      * https://github.com/laravel/framework/blob/4.2/tests/Validation/ValidationValidatorTest.php#L1276
      */

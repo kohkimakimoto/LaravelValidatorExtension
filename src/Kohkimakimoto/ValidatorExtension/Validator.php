@@ -121,6 +121,17 @@ abstract class Validator extends IlluminateValidator implements ArrayableInterfa
         return $this;
     }
 
+    public function getOption($key, $default = null)
+    {
+        return isset($this->options[$key]) ? $this->options[$key] : $default;
+    }
+
+    public function setOption($key, $value)
+    {
+        $this->options[$key] = $value;
+        return $this;
+    }
+
     protected function validate($attribute, $rule)
     {
         parent::validate($attribute, $rule);
